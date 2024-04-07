@@ -5,7 +5,7 @@ export function createBackground() {
     const BALL_RADIUS = 20;
     const BALL_COUNT = 70;
     const MOUSE_RADIUS = 70;
-    const BALL_COLOR = '#2222dd';
+    const BALL_COLOR = '#E2E8F0';
     const MOUSE_EVENT = 'mousemove';
     const MIN_SPEED = 5; // Minimum speed (pixels per frame)
     const INITIAL_SPEED = 10; // Initial speed (pixels per frame)
