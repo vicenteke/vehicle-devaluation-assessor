@@ -96,12 +96,15 @@ export const VehicleConstantsProvider: FC<any> = ({ children }) => {
           ...data,
           'years': {},
         };
+        newData.models![brand!] = {};
         newData.models![brand!][type!] = res;
         break;
       case 'years':
         newData = {
           ...data,
         };
+        newData.years![model!] = {};
+        newData.years![model!][brand!] = {};
         newData.years![model!][brand!][type!] = res;
         break;
     }

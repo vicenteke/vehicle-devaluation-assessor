@@ -27,7 +27,7 @@ const AssessmentResults: FC<any> = () => {
       <CircularProgress color='teal' isIndeterminate/>
     </Stack>
 
-  if (!data || !data.currentValue || !data.variation)
+  if (!data || !data.current_price || !data.variation)
     return <></>;
 
   return <Stack alignItems='center' py={10} px={3} spacing={3} w='100%'>
@@ -35,7 +35,7 @@ const AssessmentResults: FC<any> = () => {
       Your vehicle is currently rated at
     </Text>
     <Heading size='xl'>
-      R$ {data.currentValue.toLocaleString(
+      R$ {data.current_price.toLocaleString(
         'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
     </Heading>
     <Stat flexGrow={0}>
@@ -53,8 +53,14 @@ const AssessmentResults: FC<any> = () => {
         Car rate at the moment of the acquisition:
       </Text>
       <Heading size='sm'>
-        R$ {(data.originalValue).toLocaleString(
-          'en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        R$ {
+          data.original_price ?
+          (data.original_price).toLocaleString(
+            'en-US',
+            { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+          )
+          : '--'
+        }
       </Heading>
     </Flex>
     <Flex justifyContent='space-between' alignItems='center' w='100%'>

@@ -89,10 +89,9 @@ export const VehicleFormProvider: FC<any> = ({ children }) => {
   async function fetchData() {
     if (!validate())
       return null;
-    let url = `
-      ${process.env.NEXT_PUBLIC_BACKEND_URL}/constants/${vehicleType!.value}
-      /${brand!.value}/${model!.value}/${year!.value}/${value}
-      /${acquisitionYear}`;
+    let url = (`${process.env.NEXT_PUBLIC_BACKEND_URL}${vehicleType!.value}/` +
+      `${brand!.value}/${model!.value}/${year!.value}/${value}` +
+      `/${acquisitionYear}`);
 
     setLoading(true);
     setTimeout(() => {

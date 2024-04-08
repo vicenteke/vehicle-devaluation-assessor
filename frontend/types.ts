@@ -5,8 +5,8 @@ export interface BaseDataType {
 
 
 export interface VehicleAssessmentType {
-  currentValue: number;
-  originalValue: number;
+  current_price: number;
+  original_price: number;
   variation: number;
   inflation?: number;
 }
