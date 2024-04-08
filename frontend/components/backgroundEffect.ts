@@ -2,12 +2,12 @@ import * as Matter from 'matter-js';
 
 export function createBackground() {
     // Constants
-    const BALL_RADIUS = 20;
-    const BALL_COUNT = 70;
+    const BALL_RADIUS = 25;
+    const BALL_COUNT = 50;
     const MOUSE_RADIUS = 70;
-    const BALL_COLOR = '#E2E8F0';
+    const BALL_COLOR = '#EDF2F7';
     const MOUSE_EVENT = 'mousemove';
-    const MIN_SPEED = 5; // Minimum speed (pixels per frame)
+    const MIN_SPEED = 3; // Minimum speed (pixels per frame)
     const INITIAL_SPEED = 10; // Initial speed (pixels per frame)
     const HTML_CANVAS_ID = 'background-canvas';
 
@@ -56,7 +56,7 @@ export function createBackground() {
     }
 
     // Mouse interaction
-    canvas.addEventListener(MOUSE_EVENT, (event) => {
+    window.addEventListener(MOUSE_EVENT, (event) => {
         const cursorPosition = {
             x: event.clientX,
             y: event.clientY
@@ -120,9 +120,7 @@ export function createBackground() {
                 });
             }
         }
-
         requestAnimationFrame(render);
     }
-
     render();
 }
