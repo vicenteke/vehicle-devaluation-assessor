@@ -215,7 +215,7 @@ class VehicleAssessorView(APIView):
             data = response.json()[0]['resultados'][0]['series'][0]['serie']
             start_rate = float(data[start_month_code])
             current_rate = float(data[current_month_code])
-            inflation = current_rate / start_rate
+            inflation = (current_rate / start_rate) - 1
 
         return Response({
             'current_price': current_price,
