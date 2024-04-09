@@ -2,7 +2,11 @@
 import React, { FC, createContext, useContext, useState } from "react";
 import axios from "axios";
 import moment from "moment";
-import { BaseDataType, VehicleAssessmentType } from "@/types";
+import {
+  BaseDataType,
+  ErrorsType,
+  VehicleAssessmentType
+} from "@/types";
 
 
 interface VehicleFormContext {
@@ -27,16 +31,6 @@ interface VehicleFormContext {
   setValue: React.Dispatch<React.SetStateAction<number>>;
   clear: () => void;
   validate: () => boolean;
-}
-
-interface ErrorsType {
-  fetch?: string;
-  vehicleType?: string;
-  brand?: string;
-  model?: string;
-  year?: string;
-  acquisitionYear?: string;
-  value?: string;
 }
 
 const VehicleFormContext = createContext<VehicleFormContext>({} as VehicleFormContext);

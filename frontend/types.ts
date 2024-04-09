@@ -10,3 +10,14 @@ export interface VehicleAssessmentType {
   variation: number;
   inflation?: number;
 }
+
+
+export interface ErrorsType {
+  fetch?: string;
+  vehicleType?: string;
+  brand?: string;
+  model?: string;
+  year?: string;
+  acquisitionYear?: string;
+  value?: string;
+}

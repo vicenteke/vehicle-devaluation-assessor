@@ -10,16 +10,13 @@ import {
   StatHelpText,
   Text
 } from "@chakra-ui/react";
-import { useVehicleConstants } from "@/hooks/useVehicleConstants";
 import { useVehicleForm } from "@/hooks/useVehicleForm";
 
 
 const AssessmentResults: FC<any> = () => {
-  const { loading: loadingConstants } = useVehicleConstants();
   const { loading, data } = useVehicleForm();
-  const isLoading = loadingConstants || loading;
 
-  if (isLoading)
+  if (loading)
     return <Stack alignItems='center' py={10} px={1} spacing={5}>
       <Text textAlign='center'>
         Please wait while we assess your vehicle...
@@ -30,7 +27,7 @@ const AssessmentResults: FC<any> = () => {
   if (!data || !data.current_price || !data.variation)
     return <></>;
 
-  return <Stack alignItems='center' py={10} px={3} spacing={3} w='100%'>
+  return <Stack alignItems='center' pt={10} px={3} spacing={3} w='100%'>
     <Text textAlign='center'>
       Your vehicle is currently rated at
     </Text>

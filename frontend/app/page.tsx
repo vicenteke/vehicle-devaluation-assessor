@@ -16,7 +16,7 @@ export default function Home() {
           w='100%' minH='100vh'
           flexDir='column'
           alignItems='center'
-          pt='5em'
+          pt='4em'
           px='6em'>
         <Flex
           flexDir='column'
@@ -42,7 +42,7 @@ export default function Home() {
           w='xl'
           maxW='xl'
           alignSelf='center'
-          mt='4em'
+          mt='3em'
         />
       </Flex>
     </main>

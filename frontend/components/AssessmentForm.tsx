@@ -16,19 +16,22 @@ import {
   NumberDecrementStepper,
   Text
 } from "@chakra-ui/react";
-import { CUIAutoComplete } from 'chakra-ui-autocomplete';
+import { BaseDataType } from "@/types";
 import { useVehicleConstants } from "@/hooks/useVehicleConstants";
 import { useVehicleForm } from "@/hooks/useVehicleForm";
+import Autocomplete from "./Autocomplete";
 
 
 const AssessmentForm: FC<any> = () => {
   const {
     loading: loadingConstants,
-    setLoading: setLoadingConstants,
     vehicleTypes,
     brands,
     models,
     years,
+    setBrands,
+    setModels,
+    setYears,
     fetchVehicleTypes,
     fetchBrands,
     fetchModels,
@@ -37,8 +40,6 @@ const AssessmentForm: FC<any> = () => {
 
   const {
     loading,
-    setLoading,
-    data,
     setData,
     fetchData,
     errors,
@@ -56,7 +57,6 @@ const AssessmentForm: FC<any> = () => {
     setAcquisitionYear,
     setValue,
     clear,
-    validate,
   } = useVehicleForm();
 
   const isLoading = loadingConstants || loading;
@@ -73,6 +73,9 @@ const AssessmentForm: FC<any> = () => {
       setBrand(null);
       setModel(null);
       setYear(null);
+      setBrands(null);
+      setModels(null);
+      setYears(null);
     }
   }, [vehicleType]);
 
@@ -82,14 +85,18 @@ const AssessmentForm: FC<any> = () => {
     else {
       setModel(null);
       setYear(null);
+      setModels(null);
+      setYears(null);
     }
   }, [brand]);
 
   useEffect(() => {
     if (model)
       fetchYears(vehicleType!.value, brand!.value, model.value);
-    else
+    else {
       setYear(null);
+      setYears(null);
+    }
   }, [model]);
 
   async function onSubmit() {
@@ -102,6 +109,14 @@ const AssessmentForm: FC<any> = () => {
         fetch: 'Failed to fetch data, you can try different filters'
       })
     }
+  }
+
+  function onClear() {
+    setErrors({});
+    if (vehicleType)
+      clear();
+    else
+      setData(null);
   }
 
   return <>
@@ -122,123 +137,63 @@ const AssessmentForm: FC<any> = () => {
     >
       <GridItem area='vehicleType'>
       <FormControl isDisabled={isLoading} mb='-40px' isInvalid={!!errors.vehicleType} isRequired>
-        <FormLabel mb='-13px'>Vehicle Type</FormLabel>
-        <CUIAutoComplete
-          disableCreateItem
-          placeholder="Specify the type of the vehicle"
-          items={vehicleTypes! || []}
-          selectedItems={
-            vehicleTypes?.filter(
-              (item) => vehicleType?.value === item.value
-            ) || []
-          }
-          onSelectedItemsChange={(changes) => {
-            setVehicleType(changes.selectedItems?.[0] || null);
-            const {vehicleType, ...newErrors} = errors;
-            setErrors(newErrors);
-          }}
-          listStyleProps={{
-            position: 'absolute',
-            zIndex: '20',
-            maxH: '250px',
-            overflowY: 'auto',
-            width: '100%',
-          }}
+        <FormLabel>Vehicle Type</FormLabel>
+        <Autocomplete
+          fieldId='vehicleType'
+          selectedValue={vehicleType}
+          options={vehicleTypes}
+          setter={setVehicleType}
+          placeholder="Specify the type"
         />
-        <FormErrorMessage>{errors.vehicleType}</FormErrorMessage>
+        <FormErrorMessage mt='-35px' mb='35px'>{errors.vehicleType}</FormErrorMessage>
       </FormControl>
     </GridItem>
     <GridItem area='brand'>
       <FormControl isDisabled={isLoading} mb='-40px' isInvalid={!!errors.brand} isRequired>
-        <FormLabel mb='-13px'>Brand</FormLabel>
-        <CUIAutoComplete
-          disableCreateItem
+        <FormLabel>Brand</FormLabel>
+        <Autocomplete
+          fieldId='brand'
+          selectedValue={brand}
+          options={brands}
+          setter={setBrand}
           placeholder="Specify the brand"
-          items={brands! || []}
-          selectedItems={
-            brands?.filter(
-              (item) => brand?.value === item.value
-            ) || []
-          }
-          onSelectedItemsChange={(changes) => {
-            setBrand(changes.selectedItems?.[0] || null);
-            const {brand, ...newErrors} = errors;
-            setErrors(newErrors);
-          }}
-          listStyleProps={{
-            position: 'absolute',
-            zIndex: '20',
-            maxH: '250px',
-            overflowY: 'auto',
-            width: '100%',
-          }}
         />
-        <FormErrorMessage>{errors.brand}</FormErrorMessage>
+        <FormErrorMessage mt='-35px' mb='35px'>{errors.brand}</FormErrorMessage>
       </FormControl>
     </GridItem>
     <GridItem area='model'>
       <FormControl isDisabled={isLoading} mb='-40px' isInvalid={!!errors.model} isRequired>
-        <FormLabel mb='-13px'>Model</FormLabel>
-        <CUIAutoComplete
-          disableCreateItem
+        <FormLabel>Model</FormLabel>
+        <Autocomplete
+          fieldId='model'
+          selectedValue={model}
+          options={models}
+          setter={setModel}
           placeholder="Specify the model"
-          items={models! || []}
-          selectedItems={
-            models?.filter(
-              (item) => model?.value === item.value
-            ) || []
-          }
-          onSelectedItemsChange={(changes) => {
-            setModel(changes.selectedItems?.[0] || null);
-            const {model, ...newErrors} = errors;
-            setErrors(newErrors);
-          }}
-          listStyleProps={{
-            position: 'absolute',
-            zIndex: '20',
-            maxH: '250px',
-            overflowY: 'auto',
-            width: '100%',
-          }}
         />
-        <FormErrorMessage>{errors.model}</FormErrorMessage>
+        <FormErrorMessage mt='-35px' mb='35px'>{errors.model}</FormErrorMessage>
       </FormControl>
     </GridItem>
     <GridItem area='year'>
       <FormControl isDisabled={isLoading} mb='-40px' isInvalid={!!errors.year} isRequired>
-        <FormLabel mb='-13px'>Model Year</FormLabel>
-        <CUIAutoComplete
-          disableCreateItem
+        <FormLabel>Model Year</FormLabel>
+        <Autocomplete
+          fieldId='year'
+          selectedValue={year}
+          options={years}
+          setter={setYear}
           placeholder="Specify the model year"
-          items={years! || []}
-          selectedItems={
-            years?.filter(
-              (item) => year?.value === item.value
-            ) || []
-          }
-          onSelectedItemsChange={(changes) => {
-            setYear(changes.selectedItems?.[0] || null);
-            const {year, ...newErrors} = errors;
-            setErrors(newErrors);
-          }}
-          listStyleProps={{
-            position: 'absolute',
-            zIndex: '20',
-            maxH: '250px',
-            overflowY: 'auto',
-            width: '100%',
-          }}
         />
-        <FormErrorMessage>{errors.year}</FormErrorMessage>
+        <FormErrorMessage mt='-35px' mb='35px'>{errors.year}</FormErrorMessage>
       </FormControl>
     </GridItem>
     <GridItem area='value'>
       <FormControl isDisabled={isLoading} isInvalid={!!errors.value} isRequired>
         <FormLabel>Acquisition Value</FormLabel>
         <NumberInput
-          step={500}
+          step={500.0}
           precision={2}
-          value={value || 0} min={0}
+          value={value || 0.0} min={0}
           onChange={(valueString) => setValue(Number(valueString))}
         >
           <NumberInputField />
@@ -255,7 +210,6 @@ const AssessmentForm: FC<any> = () => {
         <FormLabel>Acquisition Year</FormLabel>
         <NumberInput
           step={1}
-          precision={2}
           value={acquisitionYear || moment().year()}
           min={1979}
           max={moment().year()}
@@ -272,7 +226,7 @@ const AssessmentForm: FC<any> = () => {
     </GridItem>
       <GridItem area='buttons' mt='1em'>
         <ButtonGroup w='100%' justifyContent='stretch' isDisabled={isLoading}>
-          <Button w='100%' onClick={clear}>
+          <Button w='100%' onClick={onClear}>
             Clear
           </Button>
           <Button

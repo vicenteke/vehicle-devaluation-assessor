@@ -11,6 +11,10 @@ interface VehicleConstantsContext {
   brands: BaseDataType[] | null;
   models: BaseDataType[] | null;
   years: BaseDataType[] | null;
+  setVehicleTypes: React.Dispatch<React.SetStateAction<BaseDataType[] | null>>;
+  setBrands: React.Dispatch<React.SetStateAction<BaseDataType[] | null>>;
+  setModels: React.Dispatch<React.SetStateAction<BaseDataType[] | null>>;
+  setYears: React.Dispatch<React.SetStateAction<BaseDataType[] | null>>;
   fetchVehicleTypes: () => Promise<any>;
   fetchBrands: (type: string) => Promise<any>;
   fetchModels: (type: string, brand: string) => Promise<any>;
@@ -151,6 +155,10 @@ export const VehicleConstantsProvider: FC<any> = ({ children }) => {
         brands,
         models,
         years,
+        setVehicleTypes,
+        setBrands,
+        setModels,
+        setYears,
         fetchVehicleTypes,
         fetchBrands,
         fetchModels,
