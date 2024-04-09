@@ -4,7 +4,8 @@ Allows you to evaluate how much has your vehicle devaluated. Applies only to Bra
 ## Front-End
 Implemented using **Next.js** and **Chakra UI**. To run it, go to the `frontend/` folder and run `npm run dev`.
 
-There will be images soon.
+https://github.com/vicenteke/vehicle-devaluation-assessor/assets/50879722/ec66a644-ffd5-4768-8e76-794c5860b9e2
+
 
 ## Back-End
 Implemented using the **Django REST Framework (DRF)**. To run it, go to the `backend/world-housing-api/` folder and run `python manage.py runserver`. You might wnat to create a virtual environment (`venv`), so make sure are running the commands from there.
